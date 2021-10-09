@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    console.log('do your thing make we see')
     $('.coverIn').on('mouseover', function () {
         $('#goOut')[0].beginElement();
     })
