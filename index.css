@@ -21,3 +21,16 @@
 .coverIn:hover {
     color: #fff;
 }
+
+
+:root {
+    --genWidth: 900px;
+    --genHeight: 300px;
+}
+
+.mainCover {
+    width: var(--genWidth);
+    height: var(--genHeight);
+    margin: 20px 0 100px;
+    background-color: orange;
+}
