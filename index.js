@@ -22,20 +22,20 @@ const startSlider = () => {
         for (; i < numberOfBoxes; i++) {
             grab = document.querySelector(eachBoxClass); // grabs each box
             cln = grab.cloneNode(true); // clones the box
-            bxArray.push(cln);
-            grab.remove();
+            bxArray.push(cln); // saves the cloned clopy
+            grab.remove(); // removes the box since we now a clone copy of the box
         }
 
-        sliderCover.classList.remove(transitionClass)
-        sliderCover.style.marginLeft = '0px';
-        bxArray.forEach(elm => { sliderCover.appendChild(elm); })
+        sliderCover.classList.remove(transitionClass) // removes the transition class so that we can manipulate the sliderCover without the viewer noticing any changes
+        sliderCover.style.marginLeft = '0px'; // resets the margin left to zero, because at this stage we have only one box in our slider
+        bxArray.forEach(elm => { sliderCover.appendChild(elm); }) // loops through the clones boxes and re-attaches them to the slider
 
+        // we just wait for some milliseconds before we add the transition class, by now all the dom modifications must have been completed
         setTimeout(() => { sliderCover.classList.add(transitionClass) }, 100);
-
-        currentBoxInView = 1;
+        currentBoxInView = 1; // now we reset the currentBoxInView
     }
 
-    const moveSliderLeft = (wch) => {
+    const moveSliderLeft = () => {
         slideTo = `-${currentBoxInView * moveToTheLeftMargin}px`;
         currentBoxInView++;
         sliderCover.style.marginLeft = slideTo;
@@ -46,7 +46,7 @@ const startSlider = () => {
         }
     }
 
-    timmer = setInterval(() => { moveSliderLeft('right') }, timmerTime);
+    timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
 
     document.querySelector('.boxNavLeft').addEventListener('click', () => {
         if (currentBoxInView <= 1) {
@@ -63,16 +63,16 @@ const startSlider = () => {
         }
 
         clearInterval(timmer);
-        moveSliderLeft('left');
-        timmer = setInterval(() => { moveSliderLeft('right') }, timmerTime);
+        moveSliderLeft();
+        timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
     })
 
     document.querySelector('.boxNavRight').addEventListener('click', () => {
         if (currentBoxInView >= numberOfBoxes) { return false; }
 
         clearInterval(timmer);
-        moveSliderLeft('right');
-        timmer = setInterval(() => { moveSliderLeft('right') }, timmerTime);
+        moveSliderLeft();
+        timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
     })
 }
 
