@@ -1,3 +1,14 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #f5f6fa !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* font-family: 'Titillium Web', sans-serif; */
+}
+* { box-sizing: border-box; }
+
 .ourbtn {
     width: 250px;
     height: 55px;
@@ -25,7 +36,7 @@
 
 
 :root {
-    --genWidth: 900px;
+    --genWidth: 1300px;
     --genHeight: 300px;
     --numberOfBoxes: 2;
 }
@@ -45,7 +56,7 @@
     right: 0;
 }
 .boxMan {
-    width: calc(100% * var(--numberOfBoxes));
+    width: calc(var(--genWidth) * var(--numberOfBoxes));
     height: var(--genHeight);
     background-color:#273c75;
     display: block; position: relative;

@@ -1,4 +1,4 @@
-const startSlider = () => {
+const startSlider = ({useWindowsWidth}) => {
     const root = document.documentElement;
     const eachBoxClass = '.bXi' // each of the box classes
     const transitionClass = 'boxManTransition' // the transitionClass for the slider cover
@@ -35,29 +35,42 @@ const startSlider = () => {
         currentBoxInView = 1; // now we reset the currentBoxInView
     }
 
+    // in charge of moving the the boxes into view, the heart of the slider
     const moveSliderLeft = () => {
-        slideTo = `-${currentBoxInView * moveToTheLeftMargin}px`;
-        currentBoxInView++;
-        sliderCover.style.marginLeft = slideTo;
+        slideTo = `-${currentBoxInView * moveToTheLeftMargin}px`; // calculates the margin needed for the next viewbox
+        sliderCover.style.marginLeft = slideTo; // moves the next box into view
+        currentBoxInView++; // gets the stage ready for the next box
 
+        // if we are in the last view box, we reset the slider
         if (currentBoxInView >= numberOfBoxes) {
-            setTimeout(resetSlider, 1100);
+            setTimeout(resetSlider, 1100); // we use setTimeout to ensure there is no animation running
             return false;
         }
     }
 
+    // anytime the window resizes, this guy below takes care of all the re-modelling
+    const resizedWindow = () => {
+        const winWidth = window.innerWidth; // the current windows width
+        root.style.setProperty('--genWidth', `${winWidth}px`); // updates the general width of the slider
+        moveToTheLeftMargin = winWidth; // update the new margins unit that the slider uses to slide each box into view
+        // sliderCover.style.width = `${winWidth * numberOfBoxes}px`;
+        currentBoxInView--;
+        moveSliderLeft();
+    }
+
+    // calls the engine room to move the boxes
     timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
 
+    // event for navigating backwards
     document.querySelector('.boxNavLeft').addEventListener('click', () => {
         if (currentBoxInView <= 1) {
-            let grab = sliderCover.lastElementChild;
+            let grab = sliderCover.lastElementChild; // we get the last box and bring it to the front of the sliderCover
             let cln = grab.cloneNode(true);
 
-            grab.remove();
-            sliderCover.insertBefore(cln, sliderCover.childNodes[0]);
-            sliderCover.style.marginLeft = `-${moveToTheLeftMargin/3}px`;
+            grab.remove(); // removes the last box since we are moving it to the front
+            sliderCover.insertBefore(cln, sliderCover.childNodes[0]); // here is the move!
+            sliderCover.style.marginLeft = `-${moveToTheLeftMargin/3}px`; // we want to maintain the view and not let the user know anything is going on
             currentBoxInView = 0;
-
         } else {
             currentBoxInView -= 2;
         }
@@ -67,6 +80,7 @@ const startSlider = () => {
         timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
     })
 
+    // for moving forward
     document.querySelector('.boxNavRight').addEventListener('click', () => {
         if (currentBoxInView >= numberOfBoxes) { return false; }
 
@@ -74,9 +88,17 @@ const startSlider = () => {
         moveSliderLeft();
         timmer = setInterval(() => { moveSliderLeft() }, timmerTime);
     })
+
+    // if we want our slider to be responsive, this guy below comes in useful
+    resizedWindow();
+    if (useWindowsWidth == 'yes') {
+        window.onresize = function () { resizedWindow(); }
+    }
 }
 
+
 $(document).ready(function() {
+    // for the button effects
     $('.coverIn').on('mouseover', function () {
         $('#goOut')[0].beginElement();
     })
@@ -86,6 +108,6 @@ $(document).ready(function() {
 
 
     // for the images
-    startSlider();
+    startSlider({'useWindowsWidth':'yes'});
 })
 

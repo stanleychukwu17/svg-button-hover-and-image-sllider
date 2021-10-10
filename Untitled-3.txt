@@ -1,2 +1,5 @@
 git add .
 git commit -m "still on the slider"
+
+continue page design
+bring in an image and see how they go
