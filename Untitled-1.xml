@@ -1,0 +1,32 @@
+<figure class="animation-demo is-menu">
+  <figcaption>Animated Navicon</figcaption>
+  <div class="animation-demo-svg">
+    <svg class="navicon" id="navicon-full" viewbox="0 0 100 100">
+      <path id="path" d="M10 10 L 90 10 M10 50 L 90 50 M10 90 L 90 90">
+      <animate id="menu-to-arrow"
+               attributeType="XML"
+               attributeName="d"
+               from="M10 10 L 90 10 M10 50 L 90 50 M10 90 L 90 90"
+               to="M50 10 L 10 49 M90 50 L 10 50 M50 90 L 10 51"
+               dur="0.25s"
+               begin="indefinite" 
+               fill="freeze"
+               />
+      <animate id="arrow-to-menu"
+               attributeType="XML"
+               attributeName="d"
+               from="M10 49 L 50 10 M10 50 L 90 50 M10 51 L 50 90"
+               to="M90 10 L 10 10 M90 50 L 10 50 M90 90 L 10 90"
+               dur="0.25s"
+               begin="indefinite"
+               fill="freeze"
+               />
+        
+    </path>
+  </svg>
+  </div>
+  <div class="animation-demo-buttons">
+    <button class="button to-arrow">Switch to arrow icon</button>
+    <button class="button to-menu">Switch to menu icon</button>
+  </div>
+</figure>

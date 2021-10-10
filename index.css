@@ -26,6 +26,7 @@
 :root {
     --genWidth: 900px;
     --genHeight: 300px;
+    --numberOfBoxes: 2;
 }
 
 .mainCover {
@@ -33,4 +34,22 @@
     height: var(--genHeight);
     margin: 20px 0 100px;
     background-color: orange;
+    display: block; position: relative;
+}
+.boxMan {
+    width: calc(100% * var(--numberOfBoxes));
+    height: var(--genHeight);
+    background-color:#273c75;
+    display: block; position: relative;
+}
+.bXi {
+    display: block; position: relative; float: left;
+    width: var(--genWidth);
+    height: var(--genHeight);
+    background: linear-gradient(transparent, brown);
+    font-size: 80px; text-align: center; font-weight: bold; line-height: 2;
+}
+.box2 {
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 }
