@@ -50,10 +50,9 @@ const startSlider = ({useWindowsWidth}) => {
 
     // anytime the window resizes, this guy below takes care of all the re-modelling
     const resizedWindow = () => {
-        const winWidth = window.innerWidth; // the current windows width
+        const winWidth = document.body.clientWidth; // the current windows width
         root.style.setProperty('--genWidth', `${winWidth}px`); // updates the general width of the slider
         moveToTheLeftMargin = winWidth; // update the new margins unit that the slider uses to slide each box into view
-        // sliderCover.style.width = `${winWidth * numberOfBoxes}px`;
         currentBoxInView--;
         moveSliderLeft();
     }
